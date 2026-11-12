@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Samaa Gamal — Accounting &amp; Finance</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper: #EEF0E7;
+    --paper-2: #E6E9DD;
+    --ink: #17241D;
+    --ink-soft: #4B5750;
+    --primary: #0F3D3E;
+    --primary-2: #14524F;
+    --gold: #A9791E;
+    --brick: #A03D2E;
+    --line: #C7C4AE;
+    --line-soft: #D8D6C6;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'IBM Plex Sans', sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  ::selection{ background:var(--gold); color:var(--paper); }
+
+  a{ color:inherit; }
+
+  .wrap{
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  /* ===== HEADER / MASTHEAD ===== */
+  .masthead{
+    padding: 64px 0 36px;
+    border-bottom: 3px double var(--primary);
+    text-align:center;
+  }
+  .masthead .kicker{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    color: var(--gold);
+    margin-bottom: 18px;
+    opacity:0;
+    animation: fadeIn 0.7s ease 0.1s forwards;
+  }
+  .masthead h1{
+    font-family:'Newsreader', serif;
+    font-weight:600;
+    font-size: clamp(2.6rem, 6vw, 4.2rem);
+    margin: 0 0 10px;
+    letter-spacing: -0.01em;
+    color: var(--primary);
+    opacity:0;
+    animation: fadeUp 0.8s ease 0.25s forwards;
+  }
+  .masthead .tagline{
+    font-family:'Newsreader', serif;
+    font-style: italic;
+    font-size: 1.25rem;
+    color: var(--ink-soft);
+    max-width: 520px;
+    margin: 0 auto;
+    opacity:0;
+    animation: fadeUp 0.8s ease 0.4s forwards;
+  }
+  .masthead .meta{
+    margin-top: 22px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    display:flex;
+    justify-content:center;
+    gap: 18px;
+    flex-wrap:wrap;
+    opacity:0;
+    animation: fadeUp 0.8s ease 0.55s forwards;
+  }
+  .masthead .meta a{ text-decoration:none; border-bottom: 1px solid var(--line); }
+  .masthead .meta a:hover{ border-color: var(--gold); color:var(--gold); }
+
+  @keyframes fadeIn{ to{ opacity:1; } }
+  @keyframes fadeUp{ from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);} }
+
+  /* ===== STATEMENT / STATS ROW ===== */
+  .statement{
+    padding: 40px 0 12px;
+  }
+  .statement-title{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 11.5px;
+    letter-spacing: 0.14em;
+    color: var(--ink-soft);
+    margin-bottom: 18px;
+  }
+  .ledger-row{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    gap: 12px;
+    padding: 11px 0;
+    border-bottom: 1px dotted var(--line);
+  }
+  .ledger-row:first-of-type{ border-top: 1px dotted var(--line); }
+  .ledger-row .item{
+    font-size: 15px;
+    color: var(--ink);
+  }
+  .ledger-row .value{
+    font-family:'IBM Plex Mono', monospace;
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--primary);
+    white-space:nowrap;
+  }
+
+  /* ===== SECTION STRUCTURE ===== */
+  section{ padding: 46px 0; }
+  section + section{ border-top: 1px solid var(--line-soft); }
+
+  .section-head{
+    display:flex;
+    align-items:baseline;
+    gap: 14px;
+    margin-bottom: 26px;
+  }
+  .section-num{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--gold);
+  }
+  .section-head h2{
+    font-family:'Newsreader', serif;
+    font-weight: 600;
+    font-size: 1.7rem;
+    margin: 0;
+    color: var(--primary);
+  }
+
+  .summary-text{
+    font-size: 16.5px;
+    color: var(--ink);
+    max-width: 640px;
+  }
+  .summary-text strong{ color: var(--primary); font-weight:600; }
+
+  /* ===== ENTRY (education / experience / leadership) ===== */
+  .entry{
+    display:grid;
+    grid-template-columns: 130px 1fr;
+    gap: 20px;
+    padding: 20px 0;
+  }
+  .entry + .entry{ border-top: 1px dashed var(--line-soft); }
+  .entry .date{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    padding-top: 3px;
+  }
+  .entry .role{
+    font-weight:600;
+    font-size: 16.5px;
+    color: var(--ink);
+    margin: 0 0 2px;
+  }
+  .entry .org{
+    font-size: 14px;
+    color: var(--gold);
+    margin: 0 0 10px;
+    font-weight:500;
+  }
+  .entry ul{
+    margin: 0;
+    padding-left: 18px;
+  }
+  .entry li{
+    font-size: 15px;
+    color: var(--ink-soft);
+    margin-bottom: 6px;
+  }
+  .entry li::marker{ color: var(--line); }
+  .badge{
+    display:inline-block;
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--brick);
+    border: 1px solid var(--brick);
+    padding: 2px 8px;
+    border-radius: 2px;
+    margin-top: 8px;
+  }
+
+  /* ===== CERTIFICATIONS TABLE ===== */
+  .cert-group{ margin-bottom: 22px; }
+  .cert-group-title{
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+  .cert-list{ list-style:none; margin:0; padding:0; }
+  .cert-list li{
+    display:flex;
+    justify-content:space-between;
+    gap: 12px;
+    padding: 8px 0;
+    border-bottom: 1px dotted var(--line-soft);
+    font-size: 14.5px;
+  }
+  .cert-list li span:first-child{ color: var(--ink); }
+  .cert-list li .status{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 11.5px;
+    color: var(--ink-soft);
+    white-space:nowrap;
+    padding-top:1px;
+  }
+  .status.done{ color: var(--primary-2); }
+  .status.progress{ color: var(--gold); }
+
+  /* ===== SKILLS ===== */
+  .skills-grid{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+  .skills-col h3{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    color: var(--ink-soft);
+    margin: 0 0 14px;
+    font-weight: 500;
+  }
+  .pill-row{ display:flex; flex-wrap:wrap; gap: 8px; }
+  .pill{
+    font-size: 13.5px;
+    padding: 6px 12px;
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    color: var(--ink);
+    background: var(--paper-2);
+  }
+
+  /* ===== LANGUAGES ===== */
+  .lang-row{ display:flex; gap: 40px; flex-wrap:wrap; }
+  .lang-item{ min-width: 200px; }
+  .lang-item .name{ font-weight:600; margin-bottom: 6px; }
+  .bar-track{
+    height: 6px;
+    background: var(--paper-2);
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    overflow:hidden;
+    margin-bottom: 4px;
+  }
+  .bar-fill{ height:100%; background: var(--primary); }
+  .lang-item .note{ font-size: 12px; color: var(--ink-soft); font-family:'IBM Plex Mono', monospace; }
+
+  /* ===== FOOTER ===== */
+  footer{
+    padding: 48px 0 60px;
+    text-align:center;
+    border-top: 3px double var(--primary);
+  }
+  footer h2{
+    font-family:'Newsreader', serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 1.7rem;
+    color: var(--primary);
+    margin: 0 0 18px;
+  }
+  .contact-row{
+    display:flex;
+    justify-content:center;
+    gap: 24px;
+    flex-wrap:wrap;
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 13px;
+  }
+  .contact-row a{
+    text-decoration:none;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 2px;
+  }
+  .contact-row a:hover{ border-color: var(--gold); color: var(--gold); }
+  .fine{
+    margin-top: 30px;
+    font-size: 11.5px;
+    color: var(--ink-soft);
+    opacity: 0.7;
+  }
+
+  @media (max-width: 620px){
+    .entry{ grid-template-columns: 1fr; gap: 4px; }
+    .entry .date{ order:-1; }
+    .skills-grid{ grid-template-columns: 1fr; gap: 22px; }
+    .masthead{ padding: 48px 0 28px; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .masthead .kicker, .masthead h1, .masthead .tagline, .masthead .meta{
+      animation: none !important; opacity:1 !important;
+    }
+  }
+
+  a:focus-visible, button:focus-visible{
+    outline: 2px solid var(--gold);
+    outline-offset: 2px;
+  }
+</style>
+</head>
+<body>
+
+  <header class="masthead">
+    <div class="kicker">STATEMENT OF QUALIFICATIONS · 2026</div>
+    <h1>Samaa Gamal</h1>
+    <p class="tagline">Reading the numbers behind the story — accounting, finance, and an eye for data.</p>
+    <div class="meta">
+      <span>Beni Suef, Egypt</span>
+      <span>·</span>
+      <a href="mailto:samaag39@gmail.com">samaag39@gmail.com</a>
+      <span>·</span>
+      <a href="https://linkedin.com/in/samaa-gamal" target="_blank" rel="noopener">linkedin.com/in/samaa-gamal</a>
+    </div>
+  </header>
+
+  <div class="wrap">
+
+    <div class="statement">
+      <div class="statement-title">SUMMARY OF STANDING</div>
+      <div class="ledger-row">
+        <span class="item">Cumulative GPA</span>
+        <span class="value">4.85 / 5.0</span>
+      </div>
+      <div class="ledger-row">
+        <span class="item">CIB Summer Internship — Gen AI Track, Completion Score</span>
+        <span class="value">100%</span>
+      </div>
+      <div class="ledger-row">
+        <span class="item">Financial Analysis Case Study — Team Lead, Final Grade</span>
+        <span class="value">98 / 100</span>
+      </div>
+      <div class="ledger-row">
+        <span class="item">English Proficiency (Berlitz Connect Linguistic Audit)</span>
+        <span class="value">B2 · 25/30</span>
+      </div>
+    </div>
+
+    <section id="about">
+      <div class="section-head">
+        <span class="section-num">01</span>
+        <h2>Profile</h2>
+      </div>
+      <p class="summary-text">
+        First-year International Accounting and Finance student at Beni-Suef University, building a foundation
+        in financial analysis while carrying an <strong>excellent academic standing</strong>. In August 2026, she completed
+        the <strong>CIB Summer Internship Program under the Gen AI theme</strong>, her first close look at how banking and
+        financial services actually run. That experience pointed her toward a growing interest in <strong>data analytics</strong> —
+        since then she's been layering foundational data science and AI coursework onto her accounting studies, on her own initiative.
+        Comfortable in Excel and Word, deadline-driven by habit, and working in English at a B2 level.
+      </p>
+    </section>
+
+    <section id="education">
+      <div class="section-head">
+        <span class="section-num">02</span>
+        <h2>Education</h2>
+      </div>
+      <div class="entry">
+        <div class="date">2026 —<br>Present</div>
+        <div>
+          <p class="role">International Accounting and Finance Program</p>
+          <p class="org">Beni-Suef University, Faculty of Commerce</p>
+          <ul>
+            <li>First-year undergraduate, GPA 4.85/5.0 — excellent academic standing</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience">
+      <div class="section-head">
+        <span class="section-num">03</span>
+        <h2>Internship Experience</h2>
+      </div>
+      <div class="entry">
+        <div class="date">Aug<br>2026</div>
+        <div>
+          <p class="role">Summer Intern — Gen AI Theme</p>
+          <p class="org">Commercial International Bank (CIB)</p>
+          <ul>
+            <li>Completed the CIB Summer Internship Program, August 2026 round, focused on generative AI in banking</li>
+            <li>Earned a Certificate of Attendance for full completion with a score of 100%</li>
+          </ul>
+          <span class="badge">CERTIFIED · 100%</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="leadership">
+      <div class="section-head">
+        <span class="section-num">04</span>
+        <h2>Leadership &amp; Projects</h2>
+      </div>
+      <div class="entry">
+        <div class="date">2026<br>(1.5 mo)</div>
+        <div>
+          <p class="role">Program Manager &amp; Team Lead — Remote Roots</p>
+          <p class="org">EmpowerED Remote Work Success Scholarship · Professional Development Foundation</p>
+          <ul>
+            <li>Led a 14-member team to design and deliver <em>Remote Roots</em>, a free six-module training program that helps new remote workers build strong habits in time, communication, focus, well-being, and security — the graduation project of the scholarship</li>
+            <li>As program manager, assigned roles across four workstreams (program management, content creation, technical support, facilitation) and drew up weekly plans for the whole team</li>
+            <li>Monitored progress, caught deviations early, and made corrections; stepped in to help teammates with their tasks, picking up each member's area of expertise along the way</li>
+            <li>Owned the social media marketing, running an organic-first plan that kept the actual launch cost at $0</li>
+          </ul>
+          <span class="badge" style="margin-right:8px;">KPI SCORECARD · 10/11 TARGETS MET</span><span class="badge">LAUNCH COST · $0</span>
+        </div>
+      </div>
+      <div class="entry">
+        <div class="date">2026<br>(5 mo)</div>
+        <div>
+          <p class="role">Team Lead — Financial Analysis Case Study</p>
+          <p class="org">Beni-Suef University</p>
+          <ul>
+            <li>Led a 10-member team analyzing the financial performance of Cleopatra Hospitals Group for a freshman seminar project</li>
+            <li>Coordinated deliverables across the team, sharpening collaboration, time management, and critical thinking</li>
+          </ul>
+          <span class="badge">GRADE: A+ · 98/100</span>
+          <p style="margin: 12px 0 0;"><a href="#project" style="font-family:'IBM Plex Mono', monospace; font-size: 12.5px; color: var(--primary-2); border-bottom: 1px solid var(--line);">View the full case study ↓</a></p>
+        </div>
+      </div>
+    </section>
+
+    <section id="project">
+      <div class="section-head">
+        <span class="section-num">05</span>
+        <h2>Featured Case Study — Cleopatra Hospitals Group</h2>
+      </div>
+      <p class="summary-text">
+        Cleopatra Hospitals Group is Egypt's largest private hospital network — incorporated in 1979, consolidated
+        into a single group in 2014, and listed on the Egyptian Exchange since 2016. As team lead, Samaa directed
+        a 10-member group through a full analysis of the company's consolidated income statement and balance sheet
+        for financial years 2024 and 2025: horizontal and vertical analysis of every line item, followed by liquidity,
+        activity, solvency, and profitability ratios, submitted as a discussion-committee-reviewed seminar paper.
+      </p>
+
+      <div class="statement-title" style="margin-top:28px;">KEY FINDINGS · FY2024 → FY2025</div>
+      <div class="ledger-row">
+        <span class="item">Net revenue growth</span>
+        <span class="value">+33.33%</span>
+      </div>
+      <div class="ledger-row">
+        <span class="item">Gross profit margin</span>
+        <span class="value">37.14% → 39.55%</span>
+      </div>
+      <div class="ledger-row">
+        <span class="item">Net profit margin</span>
+        <span class="value">15.07% → 13.39%</span>
+      </div>
+      <div class="ledger-row">
+        <span class="item">Earnings per share growth</span>
+        <span class="value">+17.95%</span>
+      </div>
+      <div class="ledger-row">
+        <span class="item">Current ratio</span>
+        <span class="value">1.06 → 0.71</span>
+      </div>
+      <div class="ledger-row">
+        <span class="item">Quick ratio</span>
+        <span class="value">0.92 → 0.63</span>
+      </div>
+      <div class="ledger-row">
+        <span class="item">Debt-to-assets ratio</span>
+        <span class="value">58.13% → 60.5%</span>
+      </div>
+      <div class="ledger-row">
+        <span class="item">Receivables turnover</span>
+        <span class="value">1.08×</span>
+      </div>
+      <div class="ledger-row">
+        <span class="item">Inventory turnover</span>
+        <span class="value">14.52×</span>
+      </div>
+      <div class="ledger-row">
+        <span class="item">Return on assets</span>
+        <span class="value">10.76% → 9.45%</span>
+      </div>
+
+      <p class="summary-text" style="margin-top:22px;">
+        The read: revenue and margins both grew, and shareholders earned more per share — but the group's
+        debt-funded expansion outpaced its ability to collect cash. A current ratio that dropped below 1
+        and a receivables turnover under 1.1× signalled a real liquidity strain sitting underneath the growth story.
+        The team's recommendation was threefold: speed up collection on credit sales, tighten administrative
+        and financing costs, and rebalance internal versus external financing to bring down the overall cost
+        of capital without losing managerial independence.
+      </p>
+    </section>
+
+    <section id="extracurricular">
+      <div class="section-head">
+        <span class="section-num">06</span>
+        <h2>Extracurricular Activities</h2>
+      </div>
+      <p class="summary-text" style="margin-bottom:14px;">
+        Beyond coursework, she shows up for the conversations that shape a career:
+      </p>
+      <ul style="padding-left:18px; max-width:640px;">
+        <li style="margin-bottom:8px; color:var(--ink-soft);">First Entrepreneurship Forum, Beni-Suef University (2025) — business fundamentals and entrepreneurship</li>
+        <li style="margin-bottom:8px; color:var(--ink-soft);">First Employment Forum, Beni-Suef National University (2025) — career readiness with employers and industry professionals</li>
+        <li style="margin-bottom:8px; color:var(--ink-soft);">Awareness session on combating violence and discrimination, Unit for Combating Violence Against Women, Beni-Suef University with the National Council for Women (August 2026)</li>
+      </ul>
+    </section>
+
+    <section id="certifications">
+      <div class="section-head">
+        <span class="section-num">07</span>
+        <h2>Certifications &amp; Courses</h2>
+      </div>
+
+      <div class="cert-group">
+        <div class="cert-group-title">Scholarships &amp; Training Programs</div>
+        <ul class="cert-list">
+          <li><span>EmpowerED Remote Work Success Scholarship — Professional Development Foundation</span><span class="status done">NOV 2026</span></li>
+          <li><span>Data Analytics Essentials — TCSC, Arab Open University, via Cisco Networking Academy</span><span class="status done">SEP 2026</span></li>
+        </ul>
+      </div>
+
+      <div class="cert-group">
+        <div class="cert-group-title">Ministry of Communications &amp; Cisco Academy — AI &amp; Data Science Track</div>
+        <ul class="cert-list">
+          <li><span>Introduction to Modern AI</span><span class="status done">JUL 2026</span></li>
+          <li><span>Introduction to Data Science</span><span class="status done">JUL 2026</span></li>
+          <li><span>English for IT: Advice and Time</span><span class="status done">JUL 2026</span></li>
+        </ul>
+      </div>
+
+      <div class="cert-group">
+        <div class="cert-group-title">Independent &amp; Online Coursework</div>
+        <ul class="cert-list">
+          <li><span>Getting Started with Data — IBM</span><span class="status done">AUG 2026</span></li>
+          <li><span>Effective Presentations — HP LIFE</span><span class="status done">AUG 2026</span></li>
+          <li><span>Big Data Analysis Using Excel</span><span class="status done">JUL 2026</span></li>
+          <li><span>Intermediate Accounting</span><span class="status done">OCT 2025</span></li>
+        </ul>
+      </div>
+
+
+    </section>
+
+    <section id="skills">
+      <div class="section-head">
+        <span class="section-num">08</span>
+        <h2>Skills</h2>
+      </div>
+      <div class="skills-grid">
+        <div class="skills-col">
+          <h3>TECHNICAL</h3>
+          <div class="pill-row">
+            <span class="pill">Financial Analysis</span>
+            <span class="pill">Microsoft Excel</span>
+            <span class="pill">Microsoft Word</span>
+            <span class="pill">Big Data Analysis (Excel)</span>
+            <span class="pill">Data Analytics (Foundational)</span>
+          </div>
+        </div>
+        <div class="skills-col">
+          <h3>APPLIED / SOFT</h3>
+          <div class="pill-row">
+            <span class="pill">Team Leadership</span>
+            <span class="pill">Program Management</span>
+            <span class="pill">Social Media Marketing</span>
+            <span class="pill">Time Management</span>
+            <span class="pill">Team Collaboration</span>
+            <span class="pill">Critical Thinking</span>
+            <span class="pill">Problem Solving</span>
+            <span class="pill">Deadline-Oriented</span>
+            <span class="pill">Eager to Learn</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="languages">
+      <div class="section-head">
+        <span class="section-num">09</span>
+        <h2>Languages</h2>
+      </div>
+      <div class="lang-row">
+        <div class="lang-item">
+          <div class="name">Arabic</div>
+          <div class="bar-track"><div class="bar-fill" style="width:100%;"></div></div>
+          <div class="note">NATIVE</div>
+        </div>
+        <div class="lang-item">
+          <div class="name">English</div>
+          <div class="bar-track"><div class="bar-fill" style="width:75%;"></div></div>
+          <div class="note">B2 · INTERMEDIATE 3 — 25/30</div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <footer>
+    <h2>Let's talk numbers.</h2>
+    <div class="contact-row">
+      <a href="mailto:samaag39@gmail.com">samaag39@gmail.com</a>
+      <a href="tel:01221439935">01221439935</a>
+      <a href="https://linkedin.com/in/samaa-gamal" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+    <p class="fine">Samaa Gamal Mohamed · Beni Suef, Egypt · 2026</p>
+  </footer>
+
+</body>
+</html>
